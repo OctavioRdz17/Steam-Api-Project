@@ -1,5 +1,5 @@
-datasets
-venv
+datasets/aus*
+datasets/steam_games.csv
 venv
 __pycache__
 .DS_Store
