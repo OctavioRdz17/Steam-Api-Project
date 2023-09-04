@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}</style>
+  <title>Steam Recommendation API</title>
+  <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+<body>
+    <!-- <header class="header">
+        
+    </header> -->
+  <div class="main">
+    <div class="sidebar">
+      <h2>Endpoints</h2>
+      <ul>
+        <li><a href="#intro">Introducción</a></li>
+        <li><a href="#userdata">User Data</a></li>
+        <li><a href="#countreviews">Count Reviews</a></li>
+        <li><a href="#sentiment">Sentiment Analysis</a></li>
+        <li><a href="#developer">Developer</a></li>
+        <li><a href="#genre">Genre</a></li>
+        <li><a href="#userforgenre">User to Genre</a></li>
+        <li><a href="#mlrecommendation">Ml Recommendation</a></li>
+      </ul>
+    </div>
+    <div class="content">
+        <div class="article">
+            <h1 id="intro">Steam-Recommendations-API</h1>
+            <p>Esta página contiene la descripción de los endpoints disponibles para el uso en Steam-Recommendations-API.<br/>
+            Para acceder a cada endpoint se debe enviar una petición GET al servidor, con el formato indicado en cada uno y la respuesta será en formato JSON.</p>
+            <p>Link a documentación automática de FastAPI: <a href="https://steam-api-project.onrender.com/docs">Click aquí</a></p>
+            <h2 id="userdata">User Data</h2>
+            <p>Endpoint para obtener datos de usuario.</p>
+            <p>User Data: Recibe un string con el "User Id" y devuelve un summary del user</p><p>Para acceder a este endpoint, utiliza la siguiente URL:</p>
+            <pre>https://steam-api-project.onrender.com/userdata/{user_id}</pre>
+<div class="code"><p>https://steam-api-project.onrender.com/userdata/--000--
+    Resultado:
+    {
+        "user_id": "--000--",
+        "porcentaje_recomendacion": 100,
+        "cantidad_gastada": 402.77,
+        "cantidad_items": 58
+    }</p></div>
+            <h2 id="countreviews">Count Reviews</h2>
+            <p>Endpoint para la cantidad de reviews realizadas entre dos fechas</p>
+            <p> </p>
+            <pre>https://steam-api-project.onrender.com/countreviews/{date1}/{date2}</pre>
+            <div class="code"><p>https://steam-api-project.onrender.com/countreviews/2011-11-5/2014-07-8
+    { "results": [
+    {
+        "cantidad_usuarios": 17072, 
+        "porcentaje_recomendacion": 0.91
+    }]
+}</p></div>
+            <h2 id="sentiment">Sentiment Analysis</h2>
+            <p>Endpoint para realizar análisis de sentimientos de las reviews de los usuarios agrupadas por año de lanzamiento del video juego.</p>
+            <p>Para acceder a este endpoint, utiliza la siguiente URL:</p>
+            <pre>https://steam-api-project.onrender.com/sentimentanalysis/{year}</pre>
+<div class="code"><p>https://steam-api-project.onrender.com/sentimentanalysis/2010
+    Resultado:
+    {
+        "results": [
+            {
+            "year_released": "2010",
+            "Negative": 265,
+            "Neutral": 403,
+            "Positive": 1341
+            }]
+    }</p></div>
+            <h2 id="genre">Genre</h2>
+            <p>Endpoint para obtener información sobre un género específico.</p>
+            <p>Para acceder a este endpoint, utiliza la siguiente URL:</p>
+            <pre>   https://steam-api-project.onrender.com/genre/{genre}</pre>
+<div class="code"><p>https://steam-api-project.onrender.com/genre/RPG                
+    Resultado:
+        {
+            "results": [
+                {
+                "Genre": "rpg",
+                "Total_Hours": 1041022718,
+                "Rank": 3
+                }]
+        }</p></div>
+
+            <h2 id="userforgenre">User for Genre</h2>
+            <p>Endpoint para obtener una lista de los usuarios con más horas de juego en un género.</p>
+            <p>Para acceder a este endpoint, utiliza la siguiente URL:</p>
+            <pre>https://steam-api-project.onrender.com/userforgenre/{genre}</pre>
+<div class="code"><p>https://steam-api-project.onrender.com/userforgenre/Indie                
+
+{
+    "results": [
+        {
+        "user_id": "wolop",
+        "user_url": "http://steamcommunity.com/id/wolop"
+        },
+        {
+        "user_id": "76561198039832932",
+        "user_url": "http://steamcommunity.com/profiles/76561198039832932"
+        },
+        {
+        "user_id": "tsunamitad",
+        "user_url": "http://steamcommunity.com/id/tsunamitad"
+        },
+        {
+        "user_id": "jimmynoe",
+        "user_url": "http://steamcommunity.com/id/jimmynoe"
+        },
+        {
+        "user_id": "lildoughnut",
+        "user_url": "http://steamcommunity.com/id/lildoughnut"
+        }
+    ]
+    }</p></div>
+
+            <h2 id="developer">Developer</h2>
+            <p>Endpoint para obtener información sobre un desarrollador específico.</p>
+            <p>Para acceder a este endpoint, utiliza la siguiente URL:</p>
+            <pre>https://steam-api-project.onrender.com/developer/{developer}</pre>
+<div class="code"><p>https://steam-api-project.onrender.com/developer/Mortis Games                
+{
+    "results": [
+        {
+        "release_year": 2017,
+        "item_count": 3,
+        "porcentaje_free": 33.33
+        }
+    ]
+    }</p></div>
+
+            <h2 id="mlrecommendation">Game Recommendations</h2>
+            <p>Endpoint para obtener recomendaciones de juegos basado en un juego específico.</p>
+            <p>Para acceder a este endpoint, utiliza la siguiente URL:</p>
+            <pre>https://steam-api-project.onrender.com/game_recommendations/{game_id}</pre>
+            <div class="code"><p>https://steam-api-project.onrender.com/game_recommendations/47810                
+{
+    "results": [
+        {
+        "game_id": 47730,
+        "title": "Dragon Age™: Origins Awakening"
+        },
+        {
+        "game_id": 17450,
+        "title": "Dragon Age: Origins"
+        },
+        {
+        "game_id": 17460,
+        "title": "Mass Effect"
+        },
+        {
+        "game_id": 7110,
+        "title": "Jade Empire™: Special Edition"
+        },
+        {
+        "game_id": 24980,
+        "title": "Mass Effect 2"
+        }
+    ]
+}
+        </div>
+    </div>
+  </div>
+</body>
+</html>
