@@ -1,23 +1,31 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, BackgroundTasks
 from fastapi.responses import JSONResponse,HTMLResponse
 import pandas as pd
 import ast
 from fastapi.staticfiles import StaticFiles
-
+import time
+import asyncio
 
 app = FastAPI(title= 'Steam-API')
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+async def keep_alive_task():
+    while True:
+        # Realiza alguna actividad aquí para mantener la cuenta activa
+        print("Manteniendo la cuenta activa...")
+        await asyncio.sleep(550)  # Espera 10 minutos
 
 # ROOT DE LA WEB
 @app.get("/")
-def read_root():
+async def read_root(background_tasks: BackgroundTasks):
     '''
     Root de la api donde debe regresar una pagina html
       Con la descripción de como usar los endpoints
     '''
     with open("index.html", "r", encoding="utf-8") as file:
         response = file.read()
+
+    background_tasks.add_task(keep_alive_task)
     
     return HTMLResponse(status_code=200,content=response)
 
